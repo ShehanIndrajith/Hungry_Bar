@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConfiguration {
-    public static final String URL = "jdbc:mysql://localhost:3306/hungrybarfinal?zeroDateTimeBehavior=CONVERT_TO_NULL";
+    public static final String URL = "jdbc:mysql://localhost:3306/hungrybarDB?zeroDateTimeBehavior=CONVERT_TO_NULL";
     public static final String USER = "root";
     public static final String PASSWORD = "shehan@2002";
     

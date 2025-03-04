@@ -1,4 +1,5 @@
 package com.javaproject.hungrybarfinal.model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class UserModel {
@@ -10,11 +11,15 @@ public class UserModel {
     private String authProvider;
     private String profilePicture;
     private LocalDateTime createdAt;
+    private String status;
+    private String vehicleType; // New field
+    private String vehicleNo; // New field
+
 
     public UserModel() {
     }
 
-    public UserModel(String userID, String name, String email, String password, String role, String authProvider, String profilePicture, LocalDateTime createdAt) {
+    public UserModel(String userID, String name, String email, String password, String role, String authProvider, String profilePicture, LocalDateTime createdAt, String status, String vehicleType, String vehicleNo) {
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -23,6 +28,9 @@ public class UserModel {
         this.authProvider = authProvider;
         this.profilePicture = profilePicture;
         this.createdAt = createdAt;
+        this.status = status;
+        this.vehicleType = vehicleType;
+        this.vehicleNo = vehicleNo;
     }
 
     public String getUserID() {
@@ -88,6 +96,30 @@ public class UserModel {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public String getVehicleNo() {
+        return vehicleNo;
+    }
+
+    public void setVehicleNo(String vehicleNo) {
+        this.vehicleNo = vehicleNo;
+    }
+
     
 }

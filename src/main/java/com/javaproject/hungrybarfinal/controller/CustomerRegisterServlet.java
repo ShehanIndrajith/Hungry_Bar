@@ -1,4 +1,6 @@
 package com.javaproject.hungrybarfinal.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaproject.hungrybarfinal.model.UserModel;
 import com.javaproject.hungrybarfinal.service.CustomerService;
 
@@ -9,60 +11,72 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/register")
 public class CustomerRegisterServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Forward to the registration form (register.jsp)
-        request.getRequestDispatcher("/WEB-INF/View/register.jsp").forward(request, response);
-    }
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get form data
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Allow requests from your React app
+response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+response.setHeader("Access-Control-Allow-Credentials", "true");
+        // Set response content type to JSON
+        response.setContentType("application/json");
 
-        // Debug: Print form data
-        System.out.println("Form data received: Name=" + name + ", Email=" + email + ", Password=" + password);
-
-        // Create a User object
-        UserModel user = new UserModel();
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
-
-        // Debug: Print user object
-        System.out.println("User object created: " + user);
+        // Parse JSON request body to UserModel
+        UserModel user = objectMapper.readValue(request.getInputStream(), UserModel.class);
 
         // Register the user
         CustomerService userService = new CustomerService();
         try {
-            System.out.println("Calling CustomerService.registerCustomer");
             String userID = userService.registerCustomer(user);
 
-            System.out.println("User registered successfully with ID: " + userID);
-
-            // Store UserID in the session
-            HttpSession session = request.getSession();
-            session.setAttribute("userID", userID);
-
-            // Redirect to success page
-            System.out.println("Forwarding to register-success.jsp");
-            request.getRequestDispatcher("/WEB-INF/View/register-success.jsp").forward(request, response);
+            // Return success response
+            response.setStatus(HttpServletResponse.SC_OK);
+            objectMapper.writeValue(response.getWriter(), new RegistrationResponse(true, "Registration successful", userID));
         } catch (SQLException e) {
-            System.out.println("SQLException occurred: " + e.getMessage());
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Registration failed. Please try again.");
-            System.out.println("Forwarding to register.jsp with error message");
-            request.getRequestDispatcher("/WEB-INF/View/register.jsp").forward(request, response);
+            // Return error response
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            objectMapper.writeValue(response.getWriter(), new RegistrationResponse(false, "Registration failed: " + e.getMessage(), null));
+        }
+    }
+
+    @Override
+protected void doOptions(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    // Enable CORS
+    response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    response.setHeader("Access-Control-Allow-Credentials", "true");
+
+    response.setStatus(HttpServletResponse.SC_OK);
+}
+    private static class RegistrationResponse {
+        private final boolean success;
+        private final String message;
+        private final String userID;
+
+        public RegistrationResponse(boolean success, String message, String userID) {
+            this.success = success;
+            this.message = message;
+            this.userID = userID;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public String getUserID() {
+            return userID;
         }
     }
 }
-

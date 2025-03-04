@@ -5,18 +5,26 @@ public class MenuItemModel {
     private String name;
     private String description;
     private double price;
-    private String category;
+    private int categoryID;
+    private String itemType;
+    private boolean isCustomizable;
+    private boolean available;
+    private String imageURL;
     private int restaurantID;
 
     public MenuItemModel() {
     }
 
-    public MenuItemModel(int itemID, String name, String description, double price, String category, int restaurantID) {
+    public MenuItemModel(int itemID, String name, String description, double price, int categoryID, String itemType, boolean isCustomizable, boolean available, String imageURL, int restaurantID) {
         this.itemID = itemID;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
+        this.categoryID = categoryID;
+        this.itemType = itemType;
+        this.isCustomizable = isCustomizable;
+        this.available = available;
+        this.imageURL = imageURL;
         this.restaurantID = restaurantID;
     }
 
@@ -52,12 +60,44 @@ public class MenuItemModel {
         this.price = price;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public boolean isIsCustomizable() {
+        return isCustomizable;
+    }
+
+    public void setIsCustomizable(boolean isCustomizable) {
+        this.isCustomizable = isCustomizable;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public int getRestaurantID() {
@@ -67,6 +107,6 @@ public class MenuItemModel {
     public void setRestaurantID(int restaurantID) {
         this.restaurantID = restaurantID;
     }
-    
-    
+
+   
 }

@@ -20,6 +20,66 @@
         <servlet-name>EditProfileServlet</servlet-name>
         <servlet-class>com.javaproject.hungrybarfinal.controller.EditProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffLoginServlet</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.StaffLoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffAddServlet</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.StaffAddServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffFetchServlet</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.StaffFetchServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.ImageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditStaffController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.EditStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStaffController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.DeleteStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetOrdersController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.GetOrdersController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMenuItemController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.AddMenuItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMenuItemsController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.GetMenuItemsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MenuItemController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.MenuItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PizzaController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.PizzaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PizzaDetailsController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.PizzaDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserIDServlet</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.GetUserIDServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CorsFilter</servlet-name>
+        <servlet-class>com.javaproject.hungrybarfinal.controller.CorsFilter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
@@ -40,9 +100,75 @@
         <servlet-name>EditProfileServlet</servlet-name>
         <url-pattern>/EditProfileServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffLoginServlet</servlet-name>
+        <url-pattern>/StaffLoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffAddServlet</servlet-name>
+        <url-pattern>/StaffAddServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffFetchServlet</servlet-name>
+        <url-pattern>/StaffFetchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/ImageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditStaffController</servlet-name>
+        <url-pattern>/EditStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaffController</servlet-name>
+        <url-pattern>/DeleteStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOrdersController</servlet-name>
+        <url-pattern>/GetOrdersController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMenuItemController</servlet-name>
+        <url-pattern>/AddMenuItemController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMenuItemsController</servlet-name>
+        <url-pattern>/GetMenuItemsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuItemController</servlet-name>
+        <url-pattern>/MenuItemController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PizzaController</servlet-name>
+        <url-pattern>/PizzaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PizzaDetailsController</servlet-name>
+        <url-pattern>/PizzaDetailsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/AddToCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserIDServlet</servlet-name>
+        <url-pattern>/GetUserIDServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CorsFilter</servlet-name>
+        <url-pattern>/CorsFilter</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
+        <!-- Session timeout in minutes -->
+        <session-config>
+            <session-timeout>30</session-timeout>
+            <!-- Session timeout in minutes -->
+        </session-config>
     </session-config>
+    <listener>
+        <listener-class>com.javaproject.hungrybarfinal.config.AppContextListener</listener-class>
+    </listener>
 </web-app>

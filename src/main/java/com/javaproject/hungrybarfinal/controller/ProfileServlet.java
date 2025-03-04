@@ -1,4 +1,6 @@
 package com.javaproject.hungrybarfinal.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaproject.hungrybarfinal.model.ProfileModel;
 import com.javaproject.hungrybarfinal.service.CustomerService;
 
@@ -17,37 +19,38 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get UserID from the session
-        HttpSession session = request.getSession();
-        String userID = (String) session.getAttribute("userID");
 
-        if (userID == null) {
-            // Redirect to login if UserID is not in session
-            response.sendRedirect("login");
+        response.setContentType("application/json");
+
+        // Fetch existing session (do not create a new one)
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("userID") == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"status\": \"error\", \"message\": \"Unauthorized - Please log in\"}");
             return;
         }
 
-        // Fetch user profile details
+        String userID = (String) session.getAttribute("userID");
+
+        // Fetch user profile details from the service layer
         CustomerService customerService = new CustomerService();
+
         try {
             ProfileModel profile = customerService.getUserProfile(userID);
 
             if (profile != null) {
-                // Set profile details in the request
-                request.setAttribute("profile", profile);
-
-                // Forward to profile page
-                request.getRequestDispatcher("/WEB-INF/View/profile.jsp").forward(request, response);
+                // Send profile data as JSON response
+                ObjectMapper objectMapper = new ObjectMapper();
+                response.getWriter().write(objectMapper.writeValueAsString(profile));
             } else {
-                // Handle error (e.g., user not found)
-                request.setAttribute("errorMessage", "User not found.");
-                request.getRequestDispatcher("/WEB-INF/View/profile.jsp").forward(request, response);
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.getWriter().write("{\"status\": \"error\", \"message\": \"User not found\"}");
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Error fetching profile details.");
-            request.getRequestDispatcher("/WEB-INF/View/profile.jsp").forward(request, response);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"status\": \"error\", \"message\": \"Error fetching profile details\"}");
         }
     }
 }
-

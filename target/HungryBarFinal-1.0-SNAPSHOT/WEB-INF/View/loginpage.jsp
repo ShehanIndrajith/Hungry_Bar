@@ -4,6 +4,11 @@
     <title>Login - Hungry Bar</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.16.0/font/lucide.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+  // Initialize Lucide Icons after the library is loaded
+  lucide.createIcons();
+</script>
     
 </head>
 <body class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
